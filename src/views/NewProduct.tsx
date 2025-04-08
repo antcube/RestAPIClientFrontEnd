@@ -3,14 +3,12 @@ import {
     ActionFunctionArgs,
     Form,
     Link,
+    redirect,
     useActionData,
 } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
-
-type Error = {
-    name: string;
-    price: string;
-};
+import { addProduct } from "../services/ProductService";
+import { Error } from "../types";
 
 export const action = async ({ request }: ActionFunctionArgs) => {
     const formData = await request.formData();
@@ -42,6 +40,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
     if (hasErrors) {
         return errors;
     }
+
+    await addProduct(data);
+
+    return redirect("/");
 };
 
 export default function NewProduct() {
