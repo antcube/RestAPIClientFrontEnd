@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import {ActionFunctionArgs, Form, Link, LoaderFunctionArgs, redirect, useActionData, useLoaderData } from "react-router-dom";
-import ErrorMessage from "../components/ErrorMessage";
 import { getProductById, updateProduct } from "../services/ProductService";
 import { Error as ErrorType, Product } from "../types";
+import ProductForm from "../components/ProductForm";
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
     if( params.id !== undefined) {
@@ -65,8 +65,8 @@ export default function EditProduct() {
 
     const [formValues, setFormValues] = useState({
         name: product.name,
-        price: product.price,
-        availability: product.availability,
+        price: product.price.toString(),
+        availability: product.availability.toString(),
     });
 
     const [serverErrors, setServerErrors] = useState<ErrorType>({
@@ -111,38 +111,11 @@ export default function EditProduct() {
             </div>
 
             <Form className="mt-10" method="post">
-                <div className="mb-4">
-                    <label className="text-gray-800" htmlFor="name">
-                        Product Name:
-                    </label>
-                    <input
-                        id="name"
-                        type="text"
-                        className="mt-2 block w-full p-3 bg-gray-50"
-                        placeholder="Product Name. ej. Laptop, Phone"
-                        name="name"
-                        value={formValues.name}
-                        onChange={handleChange}
-                    />
-                    {serverErrors.name && <ErrorMessage>{serverErrors.name}</ErrorMessage>}
-                </div>
-                <div className="mb-4">
-                    <label className="text-gray-800" htmlFor="price">
-                        Price:
-                    </label>
-                    <input
-                        id="price"
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        className="mt-2 block w-full p-3 bg-gray-50"
-                        placeholder="Product Price. ej. 1000, 199.99"
-                        name="price"
-                        value={formValues.price}
-                        onChange={handleChange}
-                    />
-                    {serverErrors.price && <ErrorMessage>{serverErrors.price}</ErrorMessage>}
-                </div>
+                <ProductForm
+                    formValues={formValues}
+                    serverErrors={serverErrors}
+                    handleChange={handleChange}
+                />
                 <div className="mb-4">
                     <label className="text-gray-800" htmlFor="availability">
                         Availability:
@@ -151,7 +124,7 @@ export default function EditProduct() {
                         id="availability"
                         className="mt-2 block w-full p-3 bg-gray-50"
                         name="availability"
-                        value={formValues.availability.toString()}
+                        value={formValues.availability}
                         onChange={handleChange}
                     >
                         {availabilityOptions.map((option) => (
@@ -167,7 +140,7 @@ export default function EditProduct() {
                 <input
                     type="submit"
                     className="mt-5 w-full bg-indigo-600 p-2 text-white font-bold text-lg cursor-pointer rounded"
-                    value="Edit Product"
+                    value="Save Changes"
                 />
             </Form>
         </>
