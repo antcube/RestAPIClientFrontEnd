@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Product } from "../types";
 import { formatCurrency } from "../utils";
 
@@ -7,6 +8,8 @@ export type ProductDetailsProps = {
 
 export default function ProductDetails({product}: ProductDetailsProps) {
     const isAvailable = product.availability ? "bg-green-500" : "bg-red-500";
+
+    const navigate = useNavigate();
 
     return (
         <tr className="border-b border-slate-200">
@@ -23,11 +26,14 @@ export default function ProductDetails({product}: ProductDetailsProps) {
             </td>
             <td className="p-3 text-lg text-gray-800 ">
                 <div className="flex items-center gap-2">
-                    <button className="bg-indigo-600 text-white text-xs w-full uppercase font-bold p-2 rounded-lg cursor-pointer hover:bg-indigo-500 transition-colors">
-                        Editar
+                    <button 
+                        className="bg-indigo-600 text-white text-xs w-full uppercase font-bold p-2 rounded-lg cursor-pointer hover:bg-indigo-500 transition-colors text-center" 
+                        onClick={() => navigate(`/products/${product.id}/edit`)}
+                    >
+                        Edit
                     </button>
                     <button className="bg-red-600 text-white text-xs w-full uppercase font-bold p-2 rounded-lg cursor-pointer hover:bg-red-500 transition-colors">
-                        Eliminar
+                        Delete
                     </button>
                 </div>
             </td>
