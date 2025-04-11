@@ -6,7 +6,7 @@ export default function Layout() {
             <header className="bg-slate-800">
                 <div className="w-[90%] max-w-7xl mx-auto py-10">
                     <h1 className="text-white font-extrabold text-4xl text-center md:text-left">
-                        Administrador de Productos
+                        Product Management Panel
                     </h1>
                 </div>
             </header>
