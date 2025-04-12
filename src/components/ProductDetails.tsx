@@ -31,13 +31,22 @@ export default function ProductDetails({product}: ProductDetailsProps) {
             <td className="p-3 text-lg text-gray-800">
                 {product.name}
             </td>
-            <td className="p-3 text-lg text-gray-800">
+            <td className="p-3 text-lg text-gray-800 text-center">
                 {formatCurrency(product.price)}
             </td>
             <td className="p-3 text-lg text-gray-800 text-center">
-                <span className={`text-white font-bold text-sm px-3 py-1 rounded-md ${isAvailable}`}>
-                    {product.availability ? "Available" : "Unavailable"}
-                </span>
+                <fetcher.Form
+                    method="post"
+                >
+                    <button
+                        className={`text-white font-bold text-sm px-3 py-1 rounded-md cursor-pointer ${isAvailable}`}
+                        type="submit"
+                        name="id"
+                        value={product.id}
+                    >
+                        {product.availability ? "Available" : "Unavailable"}
+                    </button>
+                </fetcher.Form>
             </td>
             <td className="p-3 text-lg text-gray-800 ">
                 <div className="flex items-center gap-2">

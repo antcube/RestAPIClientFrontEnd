@@ -20,21 +20,28 @@ export default function ProductDetailsMovile({ product }: ProductDetailsProps) {
                     {product.name}
                 </p>
                 <p className="text- text-gray-600 font-bold">
-                    Price:
+                    Price:{' '}
                     <span className="font-normal">
                         {formatCurrency(product.price)}
                     </span>
                 </p>
 
-                <button
-                    className={`mt-2 inline-block px-3 py-1 rounded-full text-sm font-semibold ${
-                        product.availability
-                            ? "bg-green-100 text-green-700"
-                            : "bg-red-100 text-red-700"
-                    }`}
+                <fetcher.Form
+                    method="post"
                 >
-                    {product.availability ? "Available" : "Unavailable"}
-                </button>
+                    <button
+                        className={`mt-1 inline-block px-5 py-2 rounded-full text-sm font-semibold cursor-pointer ${
+                            product.availability
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                        }`}
+                        type="submit"
+                        name="id"
+                        value={product.id}
+                    >
+                        {product.availability ? "Available" : "Unavailable"}
+                    </button>
+                </fetcher.Form>
             </div>
 
             <div className="flex flex-col justify-between items-center min-w-1/5">
