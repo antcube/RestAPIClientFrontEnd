@@ -18,6 +18,7 @@ export const router = createBrowserRouter([
                 loader: productsLoader,
                 action: updateAvailabilityAction,
                 hydrateFallbackElement: <SpinnerLoading />,
+                errorElement: <ErrorBoundary />,
             },
             {
                 path: "/products/new",
@@ -36,6 +37,13 @@ export const router = createBrowserRouter([
                 path: "/products/:id/delete",
                 action: deleteProductAction,
                 element: <p>Redirigiendo...</p>
+            },
+            {
+                path: "*",
+                element: <ErrorBoundary 
+                    message="Page not found"
+                    description="The page you are looking for does not exist."
+                />,
             }
         ]
     }
